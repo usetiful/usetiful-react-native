@@ -12,9 +12,9 @@ export const USAction = ({ action, onClose }: ActionProps) => {
   const theme = useStore((s) => s.theme);
 
   const setTourStepIndex = useStore((s) => s.setTourStepIndex);
-  const setTourStepIndexByIdent = useStore((s) => s.setTourStepIndexByIdent);
   const tourStepIndex = useStore((s) => s.tourStepIndex);
   const tourStepLength = useStore((s) => s.tourStepLength);
+  const availableTour = useStore((s) => s.availableTour);
 
   const onPress = useMemo(() => {
     switch (type) {
@@ -25,18 +25,27 @@ export const USAction = ({ action, onClose }: ActionProps) => {
       case 'previous':
         return () => setTourStepIndex(tourStepIndex - 1);
       case 'jump':
-        return () => setTourStepIndexByIdent(to);
+        return () => {
+          if (!availableTour || !availableTour.steps) return;
+          const stepIndex = availableTour.steps.findIndex(
+            (step) => parseInt(step.id, 10) === parseInt(to, 10)
+          );
+          if (stepIndex !== -1) {
+            setTourStepIndex(stepIndex);
+          }
+        };
+
       default:
         return onClose;
     }
   }, [
     onClose,
     setTourStepIndex,
-    setTourStepIndexByIdent,
     tourStepIndex,
     tourStepLength,
     type,
     to,
+    availableTour,
   ]);
 
   const btnStyles = useMemo(

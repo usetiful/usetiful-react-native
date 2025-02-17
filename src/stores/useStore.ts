@@ -20,7 +20,6 @@ interface StoreState {
   setToken: (token: string, tags?: UsetigulTag) => void;
   tourStepIndex: number;
   setTourStepIndex: (tourStepIndex: number) => void;
-  setTourStepIndexByIdent: (tourStepIdent: string) => void;
   tourStepLength: number;
   tours: Tour[];
   setTours: (tours: Tour[]) => void;
@@ -67,24 +66,6 @@ export const useStore = create<StoreState>((set) => ({
         tourStepIndex >= 0
       ) {
         return { ...state, tourStepIndex };
-      } else {
-        return { ...state };
-      }
-    });
-  },
-  setTourStepIndexByIdent: (tourStepIdent) => {
-    set((state) => {
-      if (!state.availableTour || !state.availableTour.steps) return state;
-      const stepIndex = state.availableTour.steps.findIndex(
-        (step) => parseInt(step.id, 10) === parseInt(tourStepIdent, 10)
-      );
-      if (
-        stepIndex &&
-        state.availableTour &&
-        state.availableTour.steps.length - 1 >= stepIndex &&
-        stepIndex >= 0
-      ) {
-        return { ...state, tourStepIndex: stepIndex };
       } else {
         return { ...state };
       }
