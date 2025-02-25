@@ -1,15 +1,13 @@
 {
-  "git": {
-    "commitMessage": "chore: release v${version}",
-    "tagName": "v${version}",
-    "push": true,
-    "requireCleanWorkingDir": false
-  },
-  "npm": {
-    "publish": true,
-    "skipChecks": false
-  },
-  "github": {
-    "release": true
+    "git": {
+      "commitMessage": "chore: release v${version}",
+      "tagName": "v${version}",
+      "push": true
+    },
+    "npm": {
+      "publish": true
+    },
+    "github": {
+      "release": true
+    }
   }
-}
