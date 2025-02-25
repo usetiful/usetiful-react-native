@@ -6,8 +6,8 @@ on:
       - main
 
 permissions:
-  contents: write  # Needed for pushing commits & tags
-  packages: write  # Needed if using GitHub Packages
+  contents: write # Needed for pushing commits & tags
+  packages: write # Needed if using GitHub Packages
 
 jobs:
   publish:
@@ -17,7 +17,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Ensures full git history
+          fetch-depth: 0 # Ensures full git history
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -26,31 +26,10 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: yarn install --frozen-lockfile
 
-      - name: Set up Git user
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions@users.noreply.github.com"
-          
-      - name: Bump version
+      - name: Run `release-it` to bump version and publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}  # Auth for npm
-        run: |
-          npm version patch -m "chore(): bump version to %s"
-
-      - name: Prepare package
-        run: npm run prepare
-
-      - name: Publish package to NPM
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --access public
-
-      - name: Commit and push version bump
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions@users.noreply.github.com"
-          git add package.json package-lock.json yarn.lock || true
-          git commit -m "chore: release version bump [skip ci]" || true
-          git push origin main || true
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Auth for npm
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Default GitHub token
+        run: npx release-it patch --ci
