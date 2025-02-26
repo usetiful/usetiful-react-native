@@ -37,7 +37,8 @@
     "clean": "del-cli lib",
     "prepare": "bob build",
     "release": "release-it",
-    "localpack": "yarn prepare && npm pack"
+    "localpack": "yarn prepare && npm pack",
+    "publish": "npm publish"
   },
   "keywords": [
     "react-native",
