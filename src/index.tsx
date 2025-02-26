@@ -23,6 +23,27 @@ export const Usetiful = ({ children, token, tags }: Props) => {
   const setToken = useStore((s) => s.setToken);
   const availableTour = useStore((s) => s.availableTour);
   const [layoutMeasure, setLayoutMeasure] = useState<Measure>();
+
+  const closeTour = () => {
+    useStore.setState((state) => {
+      if (state.progressorData && state.progressorData.tours && availableTour) {
+        const updatedTours = state.progressorData.tours.map((tour) => {
+          if (tour.id === availableTour.id) {
+            return { ...tour, state: 'closed' };
+          }
+          return tour;
+        });
+
+        return {
+          progressorData: {
+            ...state.progressorData,
+            tours: updatedTours,
+          },
+        };
+      }
+      return state;
+    });
+  };
   useEffect(() => {
     setToken(token, tags);
   }, [setToken, tags, token]);
@@ -82,7 +103,13 @@ export const Usetiful = ({ children, token, tags }: Props) => {
             />
           )}
           {stepType === 'slideout' && (
-            <Slideout step={step} onClose={() => setSelfClosed(true)} />
+            <Slideout
+              step={step}
+              onClose={() => {
+                setSelfClosed(true);
+                closeTour();
+              }}
+            />
           )}
         </View>
       )}
