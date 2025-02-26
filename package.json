@@ -1,6 +1,6 @@
 {
   "name": "usetiful-react-native",
-  "version": "0.2.20",
+  "version": "0.2.9",
   "description": "Usetiful react native support app",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
@@ -37,7 +37,8 @@
     "clean": "del-cli lib",
     "prepare": "bob build",
     "release": "release-it",
-    "localpack": "yarn prepare && npm pack"
+    "localpack": "yarn prepare && npm pack",
+    "publish": "npm publish"
   },
   "keywords": [
     "react-native",
