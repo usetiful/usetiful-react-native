@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Button, type ViewStyle } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  type ViewStyle,
+  ScrollView,
+} from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation, type NavigationProp } from '@react-navigation/native';
 import { setPointer } from 'usetiful-react-native';
@@ -8,6 +15,7 @@ type RootStackParamList = {
   Home: undefined;
   About: undefined;
   Help: undefined;
+  ScrollableDetails: undefined;
 };
 
 export const HomeScreen = () => {
@@ -20,6 +28,12 @@ export const HomeScreen = () => {
           <Button title="Detail" onPress={() => navitaion.navigate('Detail')} />
         </View>
         <View style={styles.navBtn}>
+          <Button
+            title="SDetail"
+            onPress={() => navitaion.navigate('ScrollableDetails')}
+          />
+        </View>
+        <View style={styles.navBtn}>
           <Button title="About" onPress={() => navitaion.navigate('About')} />
         </View>
         <View style={styles.navBtn}>
@@ -29,6 +43,36 @@ export const HomeScreen = () => {
     </View>
   );
 };
+export const ScrollableDetails = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  return (
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.home}>
+        <View style={styles.navContainer}>
+          <View style={styles.navBtn}>
+            <Button
+              title="S-Detail"
+              onPress={() => navigation.navigate('Detail')}
+            />
+          </View>
+          <View style={styles.navBtn}>
+            <Button
+              title="S-About"
+              onPress={() => navigation.navigate('About')}
+            />
+          </View>
+          <View style={styles.navBtn}>
+            <Button
+              title="S-Help"
+              onPress={() => navigation.navigate('Help')}
+            />
+          </View>
+        </View>
+      </View>
+    </ScrollView>
+  );
+};
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -36,6 +80,7 @@ export const RootStack = () => {
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="ScrollableDetails" component={ScrollableDetails} />
       <Stack.Screen name="Detail" component={DetailsScreen} />
       <Stack.Screen name="About" component={AboutScreen} />
       <Stack.Screen name="Help" component={HelpScreen} />
@@ -44,6 +89,11 @@ export const RootStack = () => {
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+    paddingVertical: 20,
+    minHeight: 2000,
+  },
   home: {
     flex: 1,
     alignItems: 'center',

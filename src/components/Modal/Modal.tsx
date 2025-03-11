@@ -6,13 +6,14 @@ import { useMemo } from 'react';
 import { useStore } from '../../stores/useStore';
 import { StepHeader } from '../StepHeader/StepHeader';
 import { RenderProgressBar } from '../ProgressBar';
+import { Dimensions } from 'react-native';
 
 type ModalProps = {
   step: TourStep;
 };
 
 export const Modal = ({ step }: ModalProps) => {
-  const { title, actions, content, alignment } = step;
+  const { title, actions, content, alignment, positioning } = step;
   const theme = useStore((s) => s.theme);
 
   const styles = useMemo(() => {
@@ -24,17 +25,87 @@ export const Modal = ({ step }: ModalProps) => {
           : alignment === 'right'
             ? 'flex-end'
             : 'flex-start';
+    const positionStyles: any = {
+      position: 'absolute',
+    };
+    const screenWidth = Dimensions.get('window').width;
+    const screenHeight = Dimensions.get('window').height;
 
+    switch (positioning.position) {
+      case 'top-left':
+        positionStyles.width = '90%';
+        positionStyles.top = Math.max(positioning.coordinates.top ?? 20, 20);
+        positionStyles.left = positioning.coordinates.left ?? 20;
+        break;
+      case 'left':
+        positionStyles.width = '90%';
+        positionStyles.left = positioning.coordinates.left ?? 20;
+        positionStyles.top = '50%';
+        positionStyles.transform = [{ translateY: -(screenHeight * 0.25) }];
+        break;
+      case 'bottom-left':
+        positionStyles.bottom = Math.max(
+          positioning.coordinates.bottom ?? 20,
+          20
+        );
+        positionStyles.left = positioning.coordinates.left ?? 20;
+        positionStyles.width = '90%';
+        break;
+      case 'top':
+        positionStyles.top = Math.max(positioning.coordinates.top ?? 20, 20);
+        positionStyles.left = '50%';
+        positionStyles.width = '80%';
+        positionStyles.transform = [{ translateX: -(screenWidth * 0.4) }];
+        break;
+      case 'center':
+        positionStyles.width = '90%';
+        positionStyles.top = '50%';
+        positionStyles.left = '50%';
+        positionStyles.transform = [
+          { translateX: -(screenWidth * 0.45) },
+          { translateY: -(screenHeight * 0.25) },
+        ];
+        break;
+      case 'bottom':
+        positionStyles.width = '90%';
+        positionStyles.left = '50%';
+        positionStyles.bottom = Math.max(
+          positioning.coordinates.bottom ?? 20,
+          20
+        );
+        positionStyles.transform = [{ translateX: -(screenWidth * 0.45) }];
+        break;
+      case 'top-right':
+        positionStyles.width = '90%';
+        positionStyles.top = positioning.coordinates.top ?? 20;
+        positionStyles.right = positioning.coordinates.right ?? 20;
+        break;
+
+      case 'right':
+        positionStyles.width = '90%';
+        positionStyles.right = positioning.coordinates.right ?? 20;
+        positionStyles.top = '50%';
+        positionStyles.transform = [{ translateY: -50 }];
+        break;
+      case 'bottom-right':
+        positionStyles.width = '90%';
+        positionStyles.bottom = positioning.coordinates.bottom ?? 20;
+        positionStyles.right = positioning.coordinates.right ?? 20;
+        break;
+      default:
+        positionStyles.top = 20;
+        positionStyles.left = '50%';
+        positionStyles.transform = [{ translateX: -50 }];
+    }
     return StyleSheet.create({
       modal: {
         backgroundColor: theme.bgColor,
-        marginTop: '50%',
-        marginHorizontal: '5%',
         shadowColor: '#000000',
         shadowOpacity: 0.5,
-        borderRadius: 5,
-        paddingHorizontal: 10,
-        paddingVertical: 8,
+        borderRadius: 8,
+        paddingHorizontal: 15,
+        paddingVertical: 12,
+        ...positionStyles,
       },
       modalActions: {
         flexDirection: 'row',
@@ -47,7 +118,7 @@ export const Modal = ({ step }: ModalProps) => {
         paddingVertical: 8,
       },
     });
-  }, [theme, alignment]);
+  }, [theme, alignment, positioning]);
 
   return (
     <View style={styles.modal}>

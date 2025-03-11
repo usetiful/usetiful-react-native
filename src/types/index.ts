@@ -31,7 +31,28 @@ export type TourStep = {
   type: 'modal' | 'pointer' | 'slideout';
   element: string;
   alignment: 'left' | 'right' | 'center';
+  positioning: StepPositioning;
 };
+export type StepPositioning = {
+  position:
+    | 'left'
+    | 'right'
+    | 'center'
+    | 'top-left'
+    | 'top-right'
+    | 'top'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'bottom';
+  fixed: boolean;
+  coordinates: {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+  };
+};
+
 export type TourTrigger = {
   type: string;
 };
