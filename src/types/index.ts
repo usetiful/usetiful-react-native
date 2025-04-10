@@ -23,6 +23,9 @@ export type ActionType = {
   url?: string;
   to: string;
 };
+
+export type Alignment = 'left' | 'center' | 'right';
+
 export type TourStep = {
   actions: ActionType[];
   content: string;
@@ -30,9 +33,10 @@ export type TourStep = {
   title: string;
   type: 'modal' | 'pointer' | 'slideout';
   element: string;
-  alignment: 'left' | 'right' | 'center';
+  alignment: Alignment;
   positioning: StepPositioning;
 };
+
 export type StepPositioning = {
   position:
     | 'left'

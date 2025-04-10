@@ -1,12 +1,12 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
 import { Body } from '../Body';
 import { Action } from '../Action';
-import type { TourStep } from '../../types';
+import type { Alignment, StepPositioning, Theme, TourStep } from '../../types';
 import { useMemo } from 'react';
 import { useStore } from '../../stores/useStore';
 import { StepHeader } from '../StepHeader/StepHeader';
 import { RenderProgressBar } from '../ProgressBar';
-import { Dimensions } from 'react-native';
 
 type ModalProps = {
   step: TourStep;
@@ -16,7 +16,30 @@ export const Modal = ({ step }: ModalProps) => {
   const { title, actions, content, alignment, positioning } = step;
   const theme = useStore((s) => s.theme);
 
-  const styles = useMemo(() => {
+  const styles = useStyle(alignment, positioning, theme);
+
+  return (
+    <View style={styles.modal}>
+      <StepHeader {...{ title }} />
+      <View style={styles.modalBody}>
+        {!!content && <Body content={content} />}
+      </View>
+      <View style={styles.modalActions}>
+        {actions.map((action) => {
+          return <Action key={action.id} {...{ action }} />;
+        })}
+      </View>
+      <RenderProgressBar />
+    </View>
+  );
+};
+
+const useStyle = (
+  alignment: Alignment,
+  positioning: StepPositioning,
+  theme: Theme
+) => {
+  return useMemo(() => {
     const justifyContent =
       alignment === 'left'
         ? 'flex-start'
@@ -25,9 +48,11 @@ export const Modal = ({ step }: ModalProps) => {
           : alignment === 'right'
             ? 'flex-end'
             : 'flex-start';
-    const positionStyles: any = {
+
+    const positionStyles: StyleProp<ViewStyle> = {
       position: 'absolute',
     };
+
     const screenWidth = Dimensions.get('window').width;
     const screenHeight = Dimensions.get('window').height;
 
@@ -80,7 +105,6 @@ export const Modal = ({ step }: ModalProps) => {
         positionStyles.top = positioning.coordinates.top ?? 20;
         positionStyles.right = positioning.coordinates.right ?? 20;
         break;
-
       case 'right':
         positionStyles.width = '90%';
         positionStyles.right = positioning.coordinates.right ?? 20;
@@ -97,6 +121,7 @@ export const Modal = ({ step }: ModalProps) => {
         positionStyles.left = '50%';
         positionStyles.transform = [{ translateX: -50 }];
     }
+
     return StyleSheet.create({
       modal: {
         backgroundColor: theme.bgColor,
@@ -119,19 +144,4 @@ export const Modal = ({ step }: ModalProps) => {
       },
     });
   }, [theme, alignment, positioning]);
-
-  return (
-    <View style={styles.modal}>
-      <StepHeader {...{ title }} />
-      <View style={styles.modalBody}>
-        {!!content && <Body content={content} />}
-      </View>
-      <View style={styles.modalActions}>
-        {actions.map((action) => {
-          return <Action key={action.id} {...{ action }} />;
-        })}
-      </View>
-      <RenderProgressBar />
-    </View>
-  );
 };
