@@ -191,6 +191,7 @@ export type SurveyPage = {
   customStyle: any;
   actions: SurveyAction;
   questions: SurveyQuestion[];
+  closeButton: boolean;
 };
 
 export type SurveyAction = {

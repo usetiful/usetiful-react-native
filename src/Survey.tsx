@@ -11,6 +11,11 @@ import {
   updateSurveyCompleted,
 } from './stores/util/surveyProgress';
 import { saveSurveyAnswer } from './stores/util/surveyAnswers';
+import {
+  fsTrackSurveyStateChanged,
+  fsTrackSurveyPageSeen,
+  fsTrackQuestionAnswered,
+} from './utils/fsEvents';
 import { useActiveExperienceStore } from './stores/useActiveExperienceStore';
 import { useDataStore } from './stores/useDataStore';
 
@@ -51,7 +56,17 @@ const Survey = ({ survey }: { survey: SurveyType }) => {
     }
 
     updateSurveyStarted(survey.id, survey.name, firstPage.id);
-  }, [survey.id, survey.name, survey.pages, surveyProgress]);
+    fsTrackSurveyStateChanged(survey, firstPage, 0, 'started');
+  }, [survey, surveyProgress]);
+
+  // Fire "Survey Page Seen" when showing any page
+  useEffect(() => {
+    if (!currentPage) {
+      return;
+    }
+
+    fsTrackSurveyPageSeen(survey, currentPage, currentPageIndex);
+  }, [survey, currentPage, currentPageIndex]);
 
   // Filter to only supported question types
   const supportedQuestions =
@@ -64,17 +79,29 @@ const Survey = ({ survey }: { survey: SurveyType }) => {
       return;
     }
 
-    // Save each answer
+    // Save each answer and fire FullStory "Question Answered"
     Object.entries(data).forEach(([questionId, value]) => {
       const question = supportedQuestions.find((q) => q.id === questionId);
       if (question && value !== undefined && value !== null && value !== '') {
+        const answer = value as string | number;
         saveSurveyAnswer(
           survey.id,
           questionId,
           question.type,
-          value as string | number,
+          answer,
           currentPage.id,
           currentPage.name
+        );
+        const questionIndex = currentPage.questions.findIndex(
+          (q) => q.id === questionId
+        );
+        fsTrackQuestionAnswered(
+          survey,
+          currentPage,
+          currentPageIndex,
+          question,
+          questionIndex >= 0 ? questionIndex : 0,
+          answer
         );
       }
     });
@@ -86,6 +113,12 @@ const Survey = ({ survey }: { survey: SurveyType }) => {
       updateSurveyProgress(survey.id, nextPage.id);
     } else {
       updateSurveyCompleted(survey.id);
+      fsTrackSurveyStateChanged(
+        survey,
+        currentPage,
+        currentPageIndex,
+        'completed'
+      );
     }
   };
 
@@ -99,11 +132,17 @@ const Survey = ({ survey }: { survey: SurveyType }) => {
   return (
     <View style={styles.container}>
       <View style={styles.modal}>
-        {currentPage.actions.close && (
+        {currentPage.closeButton && (
           <View style={styles.modalHeader}>
             <CrossBtn
               onClose={() => {
                 updateSurveyClosed(survey.id);
+                fsTrackSurveyStateChanged(
+                  survey,
+                  currentPage,
+                  currentPageIndex,
+                  'closed'
+                );
                 setSelfClosed(true);
               }}
             />
