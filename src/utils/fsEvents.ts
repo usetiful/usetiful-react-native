@@ -76,7 +76,7 @@ export function fsTrackQuestionAnswered(
     props.npsCategory = npsCategory(answer);
   }
   if (question.type === 'open') {
-    props.answer = 'MASKED';
+    props.answer = 'answer masked';
   }
   Fullstory.event(FS_EVENT_NAMES.questionAnswered, props);
 }
