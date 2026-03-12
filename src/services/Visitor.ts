@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const VISITOR_IDENT_KEY = 'usetiful-visitor-ident';
+export const VISITOR_IDENT_KEY = 'fullstory-guides-and-surveys-visitor-ident';
 
 class Visitor {
   private cachedIdent: string | null = null;

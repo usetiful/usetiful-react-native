@@ -7,7 +7,7 @@ import { Action } from '../../../src/components/Action';
 import { CrossBtn } from '../../../src/components/Cross';
 
 /**
- * Kitchen Sink Screen - Demonstrates all Usetiful components and features
+ * Kitchen Sink Screen - Demonstrates all Guides And Surveys components and features
  */
 
 function KitchenSinkScreen() {

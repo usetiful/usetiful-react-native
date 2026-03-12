@@ -1,8 +1,4 @@
-import type {
-  SurveyAnswer,
-  SurveyReporterAnswer,
-  UsetifulTag,
-} from '../../types';
+import type { SurveyAnswer, SurveyReporterAnswer, Tag } from '../../types';
 import { useDataStore } from '../useDataStore';
 import { useReportQueueStore } from '../useReportQueueStore';
 
@@ -40,7 +36,7 @@ function createReporterAnswer(
   value: string | number,
   visitorIdent: string,
   respondedAt: string,
-  tags?: UsetifulTag
+  tags?: Tag
 ): SurveyReporterAnswer {
   const reporterAnswer: SurveyReporterAnswer = {
     questionId,

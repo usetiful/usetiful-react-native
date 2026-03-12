@@ -5,7 +5,7 @@ import {
   type RefObject,
 } from 'react';
 import { StyleSheet, View } from 'react-native';
-import type { UsetifulTag, Measure } from './types';
+import type { Tag, Measure } from './types';
 import { useTargeting } from './hooks/useTargeting';
 import { useActiveExperienceStore } from './stores/useActiveExperienceStore';
 import Survey from './Survey';
@@ -19,11 +19,16 @@ import { useStore } from './stores/useStore';
 
 type Props = {
   orgId: string;
-  tags?: UsetifulTag;
+  tags?: Tag;
   navigationRef?: RefObject<NavigationContainerRef<any>>;
 } & PropsWithChildren;
 
-export const Usetiful = ({ children, orgId, tags, navigationRef }: Props) => {
+export const GuidesAndSurveys = ({
+  children,
+  orgId,
+  tags,
+  navigationRef,
+}: Props) => {
   // TODO remove this once we combine stores
   const initializeOldStore = useStore((s) => s.initialize);
   const initialize = useDataStore((s) => s.initialize);
@@ -38,7 +43,9 @@ export const Usetiful = ({ children, orgId, tags, navigationRef }: Props) => {
     let cancelled = false;
     Fullstory.onReady().then((result: { sessionId?: string }) => {
       if (!cancelled && result.sessionId && spaceToken) {
-        console.log('Usetiful: Fullstory is ready, refreshing progressor');
+        console.log(
+          'GuidesAndSurveys: Fullstory is ready, refreshing progressor'
+        );
         refreshProgressor(spaceToken, result.sessionId);
       }
     });

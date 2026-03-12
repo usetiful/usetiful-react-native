@@ -1,65 +1,57 @@
-# usetiful-react-native
+# guides-and-surveys-react-native
 
-###Empower Your React Native Apps with Usetiful’s Seamless Onboarding and Product Guidance
+### Empower Your React Native Apps with FullStory's Seamless Onboarding and Product Guidance
 
-The Usetiful React Native package brings the power of Usetiful’s user onboarding and engagement tools directly into React Native apps. Designed for those looking to enhance the user experience, Usetiful seamlessly integrates guided tours, including modals, slideouts, and pointers, as well as onboarding flows to help users navigate your app more efficiently.
+The FullStory Guides and Surveys React Native package brings the power of FullStory's user onboarding and engagement tools directly into React Native apps. Designed for those looking to enhance the user experience, FullStory seamlessly integrates guided tours, including modals, slideouts, and pointers, as well as onboarding flows to help users navigate your app more efficiently.
 
 ## Installation
 
 ```sh
-npm install usetiful-react-native
+npm install @fullstory/guides-and-surveys-react-native
 ```
 
 ```sh
-yarn add usetiful-react-native
+yarn add @fullstory/guides-and-surveys-react-native
 ```
 
 ## Usage
 
 ```js
-import { Usetiful } from 'usetiful-react-native';
+import { GuidesAndSurveys } from '@fullstory/guides-and-surveys-react-native';
 ```
 
-### Wrap Your App with the Usetiful Tag
+### Wrap Your App with GuidesAndSurveys
 
-Note: When using React Navigation, Usetiful must be a child of the NavigationContainer. For Expo projects, you can wrap your main _layout page with Usetiful.
+Note: When using React Navigation, GuidesAndSurveys must be a child of the NavigationContainer. For Expo projects, you can wrap your main \_layout page with GuidesAndSurveys.
 
 ```js
 <NavigationContainer>
-  <Usetiful token="YOUR_USETIFUL_TOKEN">
+  <GuidesAndSurveys org={orgId}>
     <YourApp />
-  </Usetiful>
+  </GuidesAndSurveys>
 </NavigationContainer>
 ```
 
-## Getting Your Usetiful Token
+## Create a tour in FullStory panel
 
-To integrate Usetiful into your app, you’ll need to get your Usetiful Token. Follow these steps to obtain it:
-
-	1.	Log in to your Usetiful account.
-	2.	Navigate to Home --> Install to your site --> r.dataset.token.
-	3.	Locate r.dataset.token and copy its value.
-
-![How to get your Usetiful Token](./src/assets/images/tokenGuid.png)
-
-## Create a tour in Usetiful panel
-
-To create a tour, log in to your Usetiful account and navigate to Home → Tour in the menu.
+To create a tour, log in to your FullStory account and navigate to Home → Tour in the menu.
 
 ## Modals and Slide Outs
-Slide-outs and modals are entirely codeless. Simply define them in the Usetiful panel, and they will automatically appear in your target app.
+
+Slide-outs and modals are entirely codeless. Simply define them in the FullStory panel, and they will automatically appear in your target app.
 
 ## Pointers
 
-To use pointers, you need to add follwoing code to your target elemet. You can choose any key for your element and add it to setPointer function. Then, use your key as a selector in the Usetiful admin.
+To use pointers, you need to add following code to your target element. You can choose any key for your element and add it to setPointer function. Then, use your key as a selector in the FullStory admin.
 
 ```js
 onLayout={(e) => setPointer('YOUR_KEY', e)}
 ```
 
 Example:
+
 ```js
-import { setPointer } from 'usetiful-react-native';
+import { setPointer } from '@fullstory/guides-and-surveys-react-native';
 
 return (
   <View>
@@ -80,9 +72,9 @@ return (
 
 We support React Navigation version 6 and higher. To target a screen, add the screen name as the value in the URL contains condition.
 
-Note: If your target screen is a child within a nested stack (default screen), you need to specify both the parent and child screen names. Separate them with “or” (as shown in the image) to account for different ways the screen might be navigated to.
+Note: If your target screen is a child within a nested stack (default screen), you need to specify both the parent and child screen names. Separate them with "or" (as shown in the image) to account for different ways the screen might be navigated to.
 
-![How to get your Usetiful Token](./src/assets/images/targeting.png)
+![How to target screens](./src/assets/images/targeting.png)
 
 ## License
 

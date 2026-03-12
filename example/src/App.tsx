@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { useRef } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import { Usetiful } from 'usetiful-react-native';
+import { GuidesAndSurveys } from '@fullstory/guides-and-surveys-react-native';
 
 export default function App() {
   // TODO: consider automatic orgID detection
@@ -13,13 +13,13 @@ export default function App() {
   return (
     <GestureHandlerRootView>
       <NavigationContainer ref={navigationRef}>
-        <Usetiful
+        <GuidesAndSurveys
           orgId={orgId}
           tags={{ userId: '2222' }}
           navigationRef={navigationRef}
         >
           <RootStack />
-        </Usetiful>
+        </GuidesAndSurveys>
       </NavigationContainer>
     </GestureHandlerRootView>
   );

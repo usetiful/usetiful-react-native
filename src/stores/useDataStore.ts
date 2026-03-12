@@ -10,7 +10,7 @@ import { visitor } from '../services/Visitor';
 import type {
   Tour,
   Survey,
-  UsetifulTag,
+  Tag,
   ProgressorData,
   SurveyProgress,
   SurveyAnswer,
@@ -23,7 +23,7 @@ interface DataStoreState {
   tours: Tour[];
   surveys: Survey[];
   orgId: string | undefined;
-  tags: UsetifulTag | undefined;
+  tags: Tag | undefined;
   visitorIdent: string | undefined;
   progressorData: ProgressorData;
   spaceToken: string | undefined;
@@ -32,7 +32,7 @@ interface DataStoreState {
   // Actions
   initialize: (
     orgId: string,
-    tags?: UsetifulTag,
+    tags?: Tag,
     sessionId?: string | null
   ) => Promise<void>;
   refreshProgressor: (spaceToken: string, sessionId: string) => Promise<void>;
@@ -222,7 +222,7 @@ export const useDataStore = create(
         },
       }),
       {
-        name: 'usetiful-data-storage',
+        name: 'fullstory-guides-and-surveys-data-storage',
         storage: createJSONStorage(() => AsyncStorage),
         partialize: (state) => ({
           progressorData: state.progressorData,

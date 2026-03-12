@@ -49,7 +49,7 @@ export const Tour = ({ layoutMeasure }: { layoutMeasure: Measure }) => {
         <View
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
-            ...styles.usetifulLayer,
+            ...styles.guidesAndSurveysLayer,
             backgroundColor: stepType === 'modal' ? '#000000cc' : 'transparent',
             justifyContent: stepType === 'slideout' ? 'flex-end' : 'flex-start',
           }}
@@ -75,10 +75,10 @@ export const Tour = ({ layoutMeasure }: { layoutMeasure: Measure }) => {
 };
 
 const styles = StyleSheet.create({
-  UsetifulContainer: {
+  guidesAndSurveysContainer: {
     flex: 1,
   },
-  usetifulLayer: {
+  guidesAndSurveysLayer: {
     position: 'absolute',
     width: '100%',
     height: '100%',

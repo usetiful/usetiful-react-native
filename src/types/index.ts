@@ -5,7 +5,7 @@ import {
   TARGET_OPERATOR_SEGMENT_EXACT,
   TARGET_OPERATOR_SEGMENT_IS_NOT,
 } from '../constants';
-export type UsetifulResponse = {
+export type GuidesAndSurveysResponse = {
   tours?: Tour[];
   surveys?: Survey[];
   spaceToken: string;
@@ -102,7 +102,7 @@ export type Theme = {
   fontContentColor: string;
 };
 
-export type UsetifulTag = {
+export type Tag = {
   [key: string]: string;
 };
 
@@ -142,7 +142,7 @@ export type SurveyReporterAnswer = {
   optionValues?: number[];
   answerText?: string;
   sessionId?: string;
-  tags?: UsetifulTag;
+  tags?: Tag;
 };
 
 /** Report type discriminator for the reporter queue. Extend with 'entity' | 'form' | 'error' | 'assistant' when needed. */

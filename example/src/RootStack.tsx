@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Button, type ViewStyle } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation, type NavigationProp } from '@react-navigation/native';
-import { setPointer } from 'usetiful-react-native';
+import { setPointer } from '@fullstory/guides-and-surveys-react-native';
 import KitchenSinkScreen from './screens/KitchenSink';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Fullstory from '@fullstory/react-native';

@@ -14,20 +14,17 @@ export default {
     },
     ios: {
       supportsTablet: true,
-      bundleIdentifier: 'usetifulreactnative.example',
+      bundleIdentifier: 'guidesandsurveys.example',
     },
     android: {
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#ffffff',
       },
-      package: 'usetifulreactnative.example',
+      package: 'guidesandsurveys.example',
     },
     web: {
       favicon: './assets/favicon.png',
-    },
-    extra: {
-      USETIFUL_TOKEN: process.env.USETIFUL_TOKEN,
     },
     plugins: [
       ['expo-font', { fonts: ['./assets/fonts/RubikStorm-Regular.ttf'] }],

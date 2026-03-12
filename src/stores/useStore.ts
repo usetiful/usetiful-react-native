@@ -5,7 +5,7 @@ import type {
   Theme,
   Tour,
   TourStep,
-  UsetifulTag,
+  Tag,
 } from '../types';
 import { type LayoutChangeEvent } from 'react-native';
 import { createJSONStorage, persist } from 'zustand/middleware';
@@ -15,8 +15,8 @@ import { fetchDataJson, fetchProgressor } from '../services/api';
 
 interface StoreState {
   token: string | undefined;
-  tags: UsetifulTag | undefined;
-  initialize: (token: string, tags?: UsetifulTag) => void;
+  tags: Tag | undefined;
+  initialize: (token: string, tags?: Tag) => void;
   selfClosed: boolean;
   setSelfClosed: (selfClosed: boolean) => void;
   surveys: Array<any>;

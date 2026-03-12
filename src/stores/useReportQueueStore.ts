@@ -120,7 +120,7 @@ export const useReportQueueStore = create<ReportQueueState>()(
       },
     }),
     {
-      name: 'usetiful-report-queue',
+      name: 'fullstory-guides-and-surveys-report-queue',
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (state) => ({
         pendingReports: state.pendingReports,

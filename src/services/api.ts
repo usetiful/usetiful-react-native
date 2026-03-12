@@ -1,18 +1,18 @@
 import type {
-  UsetifulResponse,
   ProgressorData,
   SurveyReporterAnswer,
+  GuidesAndSurveysResponse,
 } from '../types';
 import { API_CONFIG } from '../constants/api';
 
 /**
- * Fetches tour data from the Usetiful API
+ * Fetches tour data from the Guides And Surveys API
  * @param token - Authentication token
  * @returns Array of tours or empty array on error
  */
 export const fetchDataJson = async (
   token: string
-): Promise<UsetifulResponse | null> => {
+): Promise<GuidesAndSurveysResponse | null> => {
   const reqUrl = `${API_CONFIG.PLAYPEN_BASE_URL}${API_CONFIG.ENDPOINTS.DATA}?lang=${API_CONFIG.DEFAULT_PARAMS.lang}&app=${API_CONFIG.DEFAULT_PARAMS.app}`;
   try {
     const response = await fetch(reqUrl, {
@@ -25,13 +25,13 @@ export const fetchDataJson = async (
     });
 
     if (!response.ok) {
-      console.error(`USETIFUL HTTP ERROR - status: ${response.status}`);
+      console.error(`GuidesAndSurveys HTTP ERROR - status: ${response.status}`);
       return null;
     }
 
-    const res: UsetifulResponse = await response.json();
+    const res: GuidesAndSurveysResponse = await response.json();
 
-    console.log(`Usetiful: data loaded`);
+    console.log(`GuidesAndSurveys: data loaded`);
 
     return res;
   } catch (error: any) {
@@ -70,7 +70,7 @@ export const fetchProgressor = async (
     if (!response.ok) {
       console.error(
         '=======Error=====>',
-        new Error(`Usetiful: connection error ${response.status}`)
+        new Error(`GuidesAndSurveys: connection error ${response.status}`)
       );
       return null;
     }
@@ -117,11 +117,11 @@ export const saveProgressor = async (
     if (!response.ok) {
       console.error(
         '=======Error=====>',
-        new Error(`Usetiful: connection error ${response.status}`)
+        new Error(`GuidesAndSurveys: connection error ${response.status}`)
       );
       return false;
     }
-    console.log('Usetiful: Progressor is updated!');
+    console.log('GuidesAndSurveys: Progressor is updated!');
     return true;
   } catch (error: any) {
     console.error('=======Error=====>', error.message);
@@ -157,20 +157,23 @@ export const postSurveyResponse = async (
 
     if (!response.ok) {
       console.error(
-        'Usetiful: reporter survey response error',
+        'GuidesAndSurveys: reporter survey response error',
         response.status
       );
       return false;
     }
 
     console.log(
-      'Usetiful: reporter survey response is sent:',
+      'GuidesAndSurveys: reporter survey response is sent:',
       response.status,
       body
     );
     return true;
   } catch (error: any) {
-    console.error('Usetiful: reporter survey response error', error?.message);
+    console.error(
+      'GuidesAndSurveys: reporter survey response error',
+      error?.message
+    );
     return false;
   }
 };

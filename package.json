@@ -1,7 +1,7 @@
 {
-  "name": "usetiful-react-native",
-  "version": "0.2.38",
-  "description": "Usetiful react native support app",
+  "name": "@fullstory/guides-and-surveys-react-native",
+  "version": "0.1.0-beta.0",
+  "description": "Guides and surveys react native support",
   "source": "./src/index.ts",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
@@ -30,7 +30,7 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace usetiful-react-native-example",
+    "example": "yarn workspace guides-and-surveys-react-native-example",
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
@@ -46,14 +46,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/usetiful/usetiful-react-native.git"
+    "url": "git+https://github.com/fullstorydev/guides-and-surveys-react-native.git"
   },
-  "author": "Vahid <vahid@dobbytec.com> (https://github.com/usetiful)",
+  "author": "Fullstory",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/usetiful/usetiful-react-native/issues"
+    "url": "https://github.com/fullstorydev/guides-and-surveys-react-native/issues"
   },
-  "homepage": "https://github.com/usetiful/usetiful-react-native#readme",
+  "homepage": "https://github.com/fullstorydev/guides-and-surveys-react-native#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
